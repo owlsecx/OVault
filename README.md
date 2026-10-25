@@ -18,13 +18,20 @@
 
 ## 📌 Overview
 
-Encrypted local password vault with full
+
+OVault is an offline, read-only HashiCorp Vault configuration auditor that parses HCL and JSON server configuration with stdlib-only parsers. It evaluates listener TLS, storage backend security, seal/auto-unseal settings, audit-device coverage, telemetry exposure and cluster communication. Findings are mapped to CWE and MITRE ATT&CK, scored and graded, and exported as TXT, Markdown, JSON, CSV or SARIF.
 
 ---
 
 ## ✨ Features
 
-- AES-256-GCM local password vault with generator, TOTP and security audit (no credential theft)
+
+- HCL and JSON Vault config parsers (listener, storage, seal, telemetry, service_registration stanzas)
+- Listener TLS checks: tls_disable, tls_min_version, cipher suites, client-cert auth and address binding
+- Storage backend review (raft/consul/file) with TLS-to-backend and path-permission checks
+- Seal / auto-unseal configuration, disable_mlock and audit-device coverage gaps
+- API/cluster address exposure, UI enablement, telemetry endpoint and raw/pprof debug exposure
+- CWE+ATT&CK mapping, offline --root trees, score/grade and TXT/MD/JSON/CSV/SARIF export
 
 ---
 
@@ -37,8 +44,13 @@ Encrypted local password vault with full
 
 ## 🚀 Usage
 
+
 ```bash
-./OVault
+./OVault --scan -f sarif -o vault.sarif
+./OVault --config /etc/vault.d/vault.hcl --min-severity medium
+./OVault -r /mnt/image --fail-on high --json
+./OVault --demo
+./OVault --help
 ```
 
 ---
